@@ -1,0 +1,37 @@
+PETRE ALEXANDRA ELENA 335 CB
+
+-------------------------- REGEX ENGINE ---------------------------------------
+
+
+PARSAREA:
+	Am facut parsarea din string in RegEx fara Antlr sau PLY. Am parcurs 
+string-ul si fiecare element l-am introdus in stiva (daca era element din alfabet
+sau era |) pentru celelalte caractere (? + * {} []) am folosit regulile de parsare
+si am construit RegEx-ul in functie de simbol.
+ 	Pentru a tranforma string-ul in RegularExpression m-am folosit tot de stiva 
+ si am transformat simbolurile regex in expresii regulate 
+ (ex:  a? ->  (epsilon | a); a+ -> aa*)
+
+Regular Expression -> NFA:
+ 	Am folosit laboratorul 3, am construit un NFA pentru cazurile de baza
+ (EMPTY_SET, EMPTY_STRING, SYMBOL) si apoi am construit NFA-ul pentru
+ concatenare, star si alteration
+
+NFA -> DFA:
+	Am parcurs lista de tranzitii si a construit din tranzitii 
+epsilon, inchiderile epsiolon pentru fiecare stare
+Pentru fiecare stare noua, voi verifica pentru fiecare caracter
+din alfabet pe ce stari (stari din NFA) pot ajunge. Cu starile noi gasite voi 
+construi o noua stare in DFA. Am adaugat in delta toate noile tranzitii in 
+functie de starile nou construite
+	La final am parcurs lista de stari finale din NFA si lista de stari ale
+DFA-ului. Daca gaseam o stare in DFA care este finala in NFA, o adaugam in lista
+de stari finale alea DFA-ului.
+
+	La final in main.py am parcurs lista de cuvinte, si am parcurs fiecare cuvant
+litera cu litera. Am luat ca stare initiala starea initiala a DFA-ului generat pt 
+cuvant si la fiecare iteratie starea curenta se modifica cu starea in care ajungea
+cuvantul dupa ce consumam o litera.
+	Daca in final starea in care am ajuns este una din starile finale, atunci afisez
+True altel se va afisa False.
+
